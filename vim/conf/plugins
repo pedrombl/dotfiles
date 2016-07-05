@@ -1,0 +1,41 @@
+let s:pluginDir = $HOME . '/.vim/plugged'
+
+call plug#begin(s:pluginDir)
+
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'kien/ctrlp.vim'
+Plug 'bling/vim-airline'
+Plug 'mileszs/ack.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'SyntaxRange'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'mhinz/vim-startify'
+Plug 'vim-scripts/BufOnly.vim'
+
+
+" for vim-snipmate
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+" Languages
+Plug 'elixir-lang/vim-elixir'
+Plug 'claco/jasmine.vim'
+Plug 'guns/vim-clojure-static'
+Plug 'tfnico/vim-gradle'
+
+"Plug configurations
+
+map <Leader>e <Plug>(easymotion-prefix)
+
+call plug#end()
+
+if !isdirectory(s:pluginDir)
+  autocmd VimEnter * PlugInstall
+              \| source $MYVIMRC
+endif
