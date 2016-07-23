@@ -1,0 +1,20 @@
+[user]
+	email = pedrombl@gmail.com
+	name = Pedro Leal
+[branch]
+	autosetuprebase = always
+[rebase]
+	autosquash = true
+[push]
+	default = simple
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[core]
+	editor = vim
+[web]
+	browser = open
+[init]
+	templatedir = ~/.git_template
