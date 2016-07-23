@@ -12,6 +12,7 @@
 	br = branch
 	ci = commit
 	st = status
+	toptal = config user.email \"pedro.leal@toptal.com\"
 [core]
 	editor = vim
 [web]
