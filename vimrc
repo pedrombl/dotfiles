@@ -50,6 +50,7 @@ set confirm
 
 
 " NERDTree biding key
+nnoremap <silent> <F8> :NERDTreeFind<cr>
 nnoremap <silent> <F7> :NERDTreeToggle<cr>
 nmap <S-F7> :NERDTreeClose<CR>
 
@@ -77,7 +78,7 @@ nmap <Leader>l :let &list = !&list<CR>
 "ignore files
 set wildignore+=*/assets/*,*/node_modules/*,*/test_out/*,*.so,*.swp,*.zip
 
-"AngularJS structure move to test
+"structure move to test
 function! EditFileIfExists(file)
   if filereadable(a:file)
     :execute 'edit' a:file
@@ -90,11 +91,14 @@ function! SplitVertically()
   :vsplit
 endfunction
 function! OpenTest()
-  :call EditFileIfExists(substitute(substitute(@%, 'app\/js', 'test\/unit', 'g'), '\.js', '-spec.js', 'g'))
+  :call EditFileIfExists(substitute(substitute(@%, 'app\/', 'spec/', 'g'), '\.rb', '_spec.rb', 'g'))
+endfunction
+function! OpenSource()
+  :call EditFileIfExists(substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g'))
 endfunction
 
 nmap <Leader>t :call OpenTest()<CR>
-nmap <Leader>w :call EditFileIfExists(substitute(substitute(@%, 'test\/unit', 'app\/js', 'g'), '-spec\.js', '.js', 'g'))
+nmap <Leader>w :call OpenSource()<CR>
 nmap <Leader>T :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
 
 source $HOME/.vim/conf/plugins
