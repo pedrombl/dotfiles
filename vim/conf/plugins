@@ -16,7 +16,12 @@ Plug 'SyntaxRange'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'benmills/vimux'
 
+" for ruby
+Plug 'vim-scripts/matchit.zip'
+Plug 'ecomba/vim-ruby-refactoring', { 'for': 'ruby' }
+Plug 'janko-m/vim-test'
 
 " for vim-snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -25,14 +30,11 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 " Languages
-Plug 'elixir-lang/vim-elixir'
-Plug 'claco/jasmine.vim'
-Plug 'guns/vim-clojure-static'
-Plug 'tfnico/vim-gradle'
+Plug 'elixir-lang/vim-elixir', {'for': 'exilir' }
+Plug 'claco/jasmine.vim', {'for': 'javascript' }
+Plug 'guns/vim-clojure-static', {'for': 'clojure' }
+Plug 'tfnico/vim-gradle', { 'for': 'gradle' }
 
-"Plug configurations
-
-map <Leader>e <Plug>(easymotion-prefix)
 
 call plug#end()
 
@@ -40,3 +42,20 @@ if !isdirectory(s:pluginDir)
   autocmd VimEnter * PlugInstall
               \| source $MYVIMRC
 endif
+
+"Plugins configurations
+
+" Easy Motion
+map <Leader>j <Plug>(easymotion-prefix)
+
+" Run tests
+nmap <silent> <leader>rT :TestNearest<CR>
+nmap <silent> <leader>rt :TestFile<CR>
+nmap <silent> <leader>ra :TestSuite<CR>
+nmap <silent> <leader>rl :TestLast<CR>
+
+" make test commands execute using vimux
+let test#strategy = "vimux"
+
+" Use rubocop to check style
+let g:syntastic_ruby_checkers = 'rubocop'

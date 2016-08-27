@@ -1,6 +1,9 @@
 " Set leader
 let mapleader = ','
 
+"make it easy to type command in normal mode
+nmap ; :
+
 " Color
 syntax enable
 set background=dark
@@ -22,7 +25,7 @@ set incsearch
 
 " highlight search
 set hlsearch
-map <Enter> :nohlsearch <Enter>
+nnoremap <Enter> :nohlsearch<CR><C-L>
 
 " Text, tab and ident related
 "set smarttab
@@ -73,7 +76,17 @@ nmap <Leader>v :e $MYVIMRC<CR>
 
 "set trailing spaces
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-nmap <Leader>l :let &list = !&list<CR>
+"nmap <Leader>l :let &list = !&list<CR>
+nmap <Leader>l :call CodeHelper()<CR>
+
+function! CodeHelper()
+  if &list
+    :set cc=0
+  else
+    :set cc=80
+  endif
+  :let &list = !&list
+endfunction
 
 "ignore files
 set wildignore+=*/assets/*,*/node_modules/*,*/test_out/*,*.so,*.swp,*.zip
@@ -97,9 +110,9 @@ function! OpenSource()
   :call EditFileIfExists(substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g'))
 endfunction
 
-nmap <Leader>t :call OpenTest()<CR>
-nmap <Leader>w :call OpenSource()<CR>
-nmap <Leader>T :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
+nmap <Leader>ot :call OpenTest()<CR>
+nmap <Leader>ow :call OpenSource()<CR>
+nmap <Leader>oT :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
 
 source $HOME/.vim/conf/plugins
 
@@ -107,3 +120,13 @@ let g:syntastic_javascript_checkers=['jshint']
 
 nmap <c-B> :CtrlPBuffer<cr>
 
+if executable('ag')
+  " Use ag over grep
+  let g:ackprg = 'ag --vimgrep'
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
