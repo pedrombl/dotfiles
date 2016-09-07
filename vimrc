@@ -114,6 +114,14 @@ nmap <Leader>ot :call OpenTest()<CR>
 nmap <Leader>ow :call OpenSource()<CR>
 nmap <Leader>oT :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
 
+" to clean trailing spaces
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+command! TrimWhitespace call TrimWhitespace()
+
 source $HOME/.vim/conf/plugins
 
 let g:syntastic_javascript_checkers=['jshint']
