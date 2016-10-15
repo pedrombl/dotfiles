@@ -6,9 +6,8 @@ nmap ; :
 
 " Color
 syntax enable
-set background=dark
+set background=light
 colorscheme solarized
-set background=dark
 
 " set mouse
 if has('mouse') | set mouse=a | endif
@@ -104,7 +103,13 @@ function! SplitVertically()
   :vsplit
 endfunction
 function! OpenTest()
-  :call EditFileIfExists(substitute(substitute(@%, 'app\/', 'spec/', 'g'), '\.rb', '_spec.rb', 'g'))
+  let app_match = matchstr(@%, 'app/')
+  if empty(app_match)
+    let with_spec_folder = substitute(@%, '\(\w\+\)\/', 'spec/\1/', '')
+    :call EditFileIfExists(substitute(with_spec_folder, '\.rb', '_spec.rb', 'g'))
+  else
+    :call EditFileIfExists(substitute(substitute(@%, 'app\/', 'spec/', 'g'), '\.rb', '_spec.rb', 'g'))
+  end
 endfunction
 function! OpenSource()
   :call EditFileIfExists(substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g'))
@@ -116,25 +121,10 @@ nmap <Leader>oT :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
 
 " to clean trailing spaces
 fun! TrimWhitespace()
-    let l:save = winsaveview()
-    %s/\s\+$//e
-    call winrestview(l:save)
+  let l:save = winsaveview()
+  %s/\s\+$//e
+  call winrestview(l:save)
 endfun
 command! TrimWhitespace call TrimWhitespace()
 
 source $HOME/.vim/conf/plugins
-
-let g:syntastic_javascript_checkers=['jshint']
-
-nmap <c-B> :CtrlPBuffer<cr>
-
-if executable('ag')
-  " Use ag over grep
-  let g:ackprg = 'ag --vimgrep'
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif

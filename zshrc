@@ -7,6 +7,7 @@ ENABLE_CORRECTION="true"
 plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.private.sh
 
 function refresh() {
   source $HOME/.zshrc
