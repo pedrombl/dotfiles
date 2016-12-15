@@ -112,12 +112,19 @@ function! OpenTest()
   end
 endfunction
 function! OpenSource()
-  :call EditFileIfExists(substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g'))
+  let with_app_folder = substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g')
+  if filereadable(with_app_folder)
+    :call EditFileIfExists(with_app_folder)
+  else
+    let without_app_folder = substitute(with_app_folder, 'app\/', '', 'g')
+    :call EditFileIfExists(without_app_folder)
+  end
 endfunction
 
 nmap <Leader>ot :call OpenTest()<CR>
 nmap <Leader>ow :call OpenSource()<CR>
 nmap <Leader>oT :call SplitVertically()<CR><C-l>:call OpenTest()<CR>
+nmap <Leader>nt :tabe<CR>
 
 " to clean trailing spaces
 fun! TrimWhitespace()
@@ -126,5 +133,20 @@ fun! TrimWhitespace()
   call winrestview(l:save)
 endfun
 command! TrimWhitespace call TrimWhitespace()
+
+" gU, gD: vertical movement through whitespace
+" http://vi.stackexchange.com/a/156/67
+function! FloatUp()
+  while line(".") > 1 && (strlen(getline(".")) < col(".") || getline(".")[col(".") - 1] =~ '\s')
+    norm k
+  endwhile
+endfunction
+function! FloatDown()
+  while line(".") > 1 && (strlen(getline(".")) < col(".") || getline(".")[col(".") - 1] =~ '\s')
+    norm j
+  endwhile
+endfunction
+nnoremap <silent> gU :call FloatUp()<CR>
+nnoremap <silent> gD :call FloatDown()<CR>
 
 source $HOME/.vim/conf/plugins

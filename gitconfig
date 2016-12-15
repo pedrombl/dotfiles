@@ -15,6 +15,7 @@
 	toptal = config user.email \"pedro.leal@toptal.com\"
 [core]
 	editor = vim
+	excludesfile = /Users/pedroleal/.gitignore_global
 [web]
 	browser = open
 [init]
