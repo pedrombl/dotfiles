@@ -1,5 +1,5 @@
 [user]
-	email = pedrombl@gmail.com
+	email = pl@pedroleal.io
 	name = Pedro Leal
 [branch]
 	autosetuprebase = always
@@ -12,15 +12,28 @@
 	br = branch
 	ci = commit
 	st = status
-	toptal = config user.email \"pedro.leal@toptal.com\"
+
+  # Delete all local branches but master and the current one, only if they are fully merged with master.
+  br-delete-useless = "!f(){\
+      git branch | grep -v "master" | grep -v ^* | xargs git branch -d;\
+  }; f"
+  # Delete all local branches but master and the current one.
+  br-delete-useless-force = "!f(){\
+      git branch | grep -v "master" | grep -v ^* | xargs git branch -D;\
+    }; f"
+  toptal = config user.email \"pedro.leal@toptal.com\"
 [core]
 	editor = vim
 	excludesfile = /Users/pedroleal/.gitignore_global
+	pager = cat
 [web]
 	browser = open
 [init]
 	templatedir = ~/.git_template
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
+[github]
+	user = pedrombl

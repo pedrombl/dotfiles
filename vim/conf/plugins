@@ -23,6 +23,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-dispatch'
 Plug 'godlygeek/tabular'
+Plug 'vim-scripts/LanguageTool'
 
 " for ruby
 Plug 'vim-scripts/matchit.zip'
@@ -46,6 +47,11 @@ Plug 'guns/vim-clojure-static', {'for': 'clojure' }
 Plug 'tfnico/vim-gradle', { 'for': 'gradle' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'leafgarland/typescript-vim'
+
+" Gist
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 
 call plug#end()
@@ -67,8 +73,10 @@ nmap <silent> <leader>ra :TestSuite<CR>
 nmap <silent> <leader>rl :TestLast<CR>
 
 " make test commands execute using vimux
-let test#strategy = "dispatch"
+" 'dispatch'
+let test#strategy = 'vimux' 
 let test#python#pytest#options = '--doctest-modules'
+" let test#ruby#use_binstubs = 0
 
 " Use different syntax check styles
 let g:syntastic_javascript_checkers=['jshint']
@@ -98,3 +106,13 @@ endif
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 let g:autopep8_disable_key_mapping=0
+
+let g:languagetool_jar='/Users/pedroleal/Library/LanguageTool-4.0/languagetool-commandline.jar'
+
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_post_private = 1
+
+
+let g:slime_target = "tmux"
