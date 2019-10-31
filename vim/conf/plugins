@@ -6,16 +6,15 @@ call plug#begin(s:pluginDir)
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
-Plug 'kien/ctrlp.vim'
-Plug 'JazzCore/ctrlp-cmatcher', {
-  \ 'do': 'export CFLAGS=-Qunused-arguments && export CPPFLAGS=-Qunused-arguments && ./install.sh'
-  \ }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mileszs/ack.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'SyntaxRange'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'mhinz/vim-startify'
@@ -47,6 +46,7 @@ Plug 'guns/vim-clojure-static', {'for': 'clojure' }
 Plug 'tfnico/vim-gradle', { 'for': 'gradle' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
 
 " Gist
@@ -89,21 +89,22 @@ let g:airline#extensions#branch#enabled = 0
 
 " Map ctrlp for buffers
 nmap <c-B> :CtrlPBuffer<cr>
+nmap <F2> :CtrlPTag<cr>
 
 " Configure AG to be use for ctrlp and Ack
-if executable('ag')
+if executable('rg')
   " Use ag over grep
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep'
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
 
 " Change ctrl p matcher
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 let g:autopep8_disable_key_mapping=0
 

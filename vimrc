@@ -180,4 +180,6 @@ endfunction
 nnoremap <silent> gU :call FloatUp()<CR>
 nnoremap <silent> gD :call FloatDown()<CR>
 
+set tags+=.git/tags
+
 source $HOME/.vim/conf/plugins
