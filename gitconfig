@@ -1,5 +1,5 @@
 [user]
-	email = pl@pedroleal.io
+	email = pedro.leal@shopify.com
 	name = Pedro Leal
 [branch]
 	autosetuprebase = always
@@ -26,6 +26,7 @@
 	editor = vim
 	excludesfile = /Users/pedroleal/.gitignore_global
 	pager = cat
+	commitGraph = true
 [web]
 	browser = open
 [init]
@@ -37,3 +38,11 @@
 	process = git-lfs filter-process
 [github]
 	user = pedrombl
+[credential]
+	helper = osxkeychain
+[diff]
+	algorithm = patience
+[gc]
+	writeCommitGraph = true
+[protocol]
+	version = 2
