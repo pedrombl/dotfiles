@@ -15,9 +15,9 @@ function refresh() {
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-setenv('GNUTERM','x11')
 export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
 
+unsetopt correct
 unsetopt correct_all
 #alias bundle='nocorrect bundle'
 alias be='bundle exec'
@@ -49,7 +49,3 @@ source ~/.tmuxinator.zsh
 
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-
-eval "$(rbenv init -)"
-eval "$(pyenv init -)"
-eval "$(direnv hook zsh)"
