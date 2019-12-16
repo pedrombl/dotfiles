@@ -15,6 +15,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-abolish'
 Plug 'SyntaxRange'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'mhinz/vim-startify'
@@ -91,7 +92,7 @@ let g:airline#extensions#branch#enabled = 0
 nmap <c-B> :CtrlPBuffer<cr>
 nmap <F2> :CtrlPTag<cr>
 
-" Configure AG to be use for ctrlp and Ack
+" Configure RG (Ripgrep) to be use for ctrlp and Ack
 if executable('rg')
   " Use ag over grep
   let g:ackprg = 'rg --vimgrep'
