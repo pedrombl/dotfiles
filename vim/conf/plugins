@@ -18,7 +18,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-abolish'
 Plug 'SyntaxRange'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-dispatch'
@@ -40,6 +39,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
+" autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Languages
 Plug 'elixir-lang/vim-elixir', {'for': 'exilir' }
 Plug 'claco/jasmine.vim', {'for': 'javascript' }
@@ -53,7 +55,6 @@ Plug 'leafgarland/typescript-vim'
 " Gist
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
-
 
 call plug#end()
 

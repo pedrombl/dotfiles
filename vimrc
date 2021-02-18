@@ -6,8 +6,11 @@ nmap ; :
 
 " Color
 syntax enable
+packadd! dracula
+let g:dracula_italic = 0
 set background=dark
-colorscheme solarized
+colorscheme dracula
+highlight Normal ctermbg=None
 
 " set mouse
 if has('mouse') | set mouse=a | endif
@@ -50,6 +53,8 @@ nnoremap <F5> :buffers<CR>:buffer<Space>
 set hidden
 set confirm
 
+" Remove all buffers except the current one
+nmap <Leader>da :%bd\|e#\|bd#<CR>
 
 " NERDTree biding key
 nnoremap <silent> <F8> :NERDTreeFind<cr>
@@ -66,7 +71,7 @@ iab ex exceptional
 iab ad adequate
 
 " Abreviations
-cab W w| cab Q q| cab Wq wq| cab wQ wq| cab WQ wq
+cab W w| cab Q q| cab Wq wq| cab wQ wq| cab WQ wq| cab Qall qall
 
 " Turn of backup since there is version controls
 set nobackup
@@ -94,7 +99,7 @@ function! CodeHelper()
   if &list
     :set cc=0
   else
-    :set cc=80
+    :set cc=120
   endif
   :let &list = !&list
 endfunction
@@ -123,9 +128,22 @@ function! OpenTest()
   let app_match = matchstr(@%, 'app/')
   if empty(app_match)
     let with_spec_folder = substitute(@%, '\(\w\+\)\/', 'spec/\1/', '')
-    :call EditFileIfExists(substitute(with_spec_folder, '\.rb', '_spec.rb', 'g'))
+    let spec_file = substitute(with_spec_folder, '\.rb', '_spec.rb', 'g')
+    if filereadable(spec_file)
+      :call EditFileIfExists(spec_file)
+    else
+      let with_test_folder = substitute(@%, '\(\w\+\)\/', 'test/\1/', '')
+      let test_file = substitute(with_test_folder, '\.rb', '_test.rb', 'g')
+      :call EditFileIfExists(test_file)
+    endif
   else
-    :call EditFileIfExists(substitute(substitute(@%, 'app\/', 'spec/', 'g'), '\.rb', '_spec.rb', 'g'))
+    let spec_file = substitute(substitute(@%, 'app\/', 'spec/', 'g'), '\.rb', '_spec.rb', 'g')
+    if filereadable(spec_file)
+      :call EditFileIfExists(spec_file)
+    else
+      let test_file = substitute(substitute(@%, 'app\/', 'test/', 'g'), '\.rb', '_test.rb', 'g')
+      :call EditFileIfExists(test_file)
+    endif
   end
 endfunction
 
@@ -144,11 +162,16 @@ function! CreateDirForCurrentFile()
 endfunction
 
 function! OpenSource()
-  let with_app_folder = substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g')
-  if filereadable(with_app_folder)
-    :call EditFileIfExists(with_app_folder)
+  let is_spec = matchstr(@%, '_spec\.rb') 
+  let is_test = matchstr(@%, '_test\.rb') 
+  let with_app_folder_on_spec = substitute(substitute(@%, 'spec\/', 'app/', 'g'), '_spec\.rb', '.rb', 'g')
+  let with_app_folder_on_test = substitute(substitute(@%, 'test\/', 'app/', 'g'), '_test\.rb', '.rb', 'g')
+  if !empty(is_spec)
+    :call EditFileIfExists(with_app_folder_on_spec)
+  elseif !empty(is_test)
+    :call EditFileIfExists(with_app_folder_on_test)
   else
-    let without_app_folder = substitute(with_app_folder, 'app\/', '', 'g')
+    let without_app_folder = substitute(with_app_folder_on_spec, 'app\/', '', 'g')
     :call EditFileIfExists(without_app_folder)
   end
 endfunction
@@ -183,6 +206,16 @@ endfunction
 nnoremap <silent> gU :call FloatUp()<CR>
 nnoremap <silent> gD :call FloatDown()<CR>
 
+" Copy matches
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
+
 set tags+=.git/tags
 
 source $HOME/.vim/conf/plugins
+"source $HOME/.vim/conf/coc
