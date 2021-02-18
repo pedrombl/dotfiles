@@ -54,6 +54,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 
+" Theme
+Plug 'dracula/vim', { 'as': 'dracula' }
+
 call plug#end()
 
 if !isdirectory(s:pluginDir)
@@ -117,3 +120,11 @@ let g:gist_post_private = 1
 
 
 let g:slime_target = "tmux"
+
+" Color
+colorscheme dracula
+let g:dracula_italic = 0
+highlight Normal ctermbg=None
+
+"Vim snipmate
+let g:snipMate = { 'snippet_version' : 0 }

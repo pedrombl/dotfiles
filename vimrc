@@ -6,11 +6,7 @@ nmap ; :
 
 " Color
 syntax enable
-packadd! dracula
-let g:dracula_italic = 0
 set background=dark
-colorscheme dracula
-highlight Normal ctermbg=None
 
 " set mouse
 if has('mouse') | set mouse=a | endif
