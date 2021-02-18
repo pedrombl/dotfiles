@@ -11,7 +11,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mileszs/ack.vim'
-Plug 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime', { 'branch': 'main' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -26,7 +26,6 @@ Plug 'vim-scripts/LanguageTool'
 
 " for ruby
 Plug 'vim-scripts/matchit.zip'
-Plug 'ecomba/vim-ruby-refactoring', { 'for': 'ruby' }
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-cucumber', {'for': 'cucumber' }
 
