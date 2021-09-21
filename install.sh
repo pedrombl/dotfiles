@@ -11,5 +11,5 @@ if [ $SPIN ]; then
     sudo apt-get install -y tig
   fi
 
-  rcup -f -d dotfiles -x install.sh -x gitconfig -f zshrc
+  rcup -f -d dotfiles -x install.sh -x gitconfig -f .zshrc
 fi
