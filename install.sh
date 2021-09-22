@@ -11,5 +11,9 @@ if [ $SPIN ]; then
     sudo apt-get install -y tig
   fi
 
-  rcup -d ~/dotfiles -x install.sh -x gitconfig -f zshrc
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  rcup -d ~/dotfiles -x install.sh -x gitconfig
+
+  echo "source ~/.spin.zsh" >> ~/.zshrc
 fi
