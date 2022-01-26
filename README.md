@@ -10,7 +10,8 @@ Install tmux, tmuxinator (Ruby gem) and reattach-to-user-namespace (via homebrew
 
 ### vim environment
 
-Install rg (ripgrep) and `touch .ripgreprc`
+- Install rg (ripgrep) and `touch .ripgreprc`
+- Install ripper-tags (`gem install ripper-tags`) to generate the vim tags with `tags`
 
 ## Troubleshooting
 
