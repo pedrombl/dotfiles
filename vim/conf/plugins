@@ -6,8 +6,6 @@ call plug#begin(s:pluginDir)
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mileszs/ack.vim'
@@ -22,6 +20,10 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-dispatch'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/LanguageTool'
+
+" fzf telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " for ruby
 Plug 'vim-scripts/matchit.zip'
@@ -38,7 +40,7 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 " autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Languages
 Plug 'elixir-lang/vim-elixir', {'for': 'exilir' }
@@ -56,6 +58,11 @@ Plug 'mattn/gist-vim'
 
 " Theme
 Plug 'dracula/vim', { 'as': 'dracula' }
+
+" telescope configurations
+nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 
 call plug#end()
 
@@ -77,7 +84,7 @@ nmap <silent> <leader>rl :TestLast<CR>
 
 " make test commands execute using vimux
 " 'dispatch'
-let test#strategy = 'vimux' 
+let test#strategy = 'neovim' 
 let test#python#pytest#options = '--doctest-modules'
 " let test#ruby#use_binstubs = 0
 
@@ -89,25 +96,6 @@ nmap <silent> <leader>rr :Dispatch ./bin/cop<CR>
 
 " Disable fugitive in airline status bar
 let g:airline#extensions#branch#enabled = 0
-
-" Map ctrlp for buffers
-nmap <c-B> :CtrlPBuffer<cr>
-nmap <F2> :CtrlPTag<cr>
-
-" Configure RG (Ripgrep) to be use for ctrlp and Ack
-if executable('rg')
-  " Use ag over grep
-  let g:ackprg = 'rg --vimgrep'
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-" Change ctrl p matcher
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 let g:autopep8_disable_key_mapping=0
 
