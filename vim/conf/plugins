@@ -84,7 +84,7 @@ nmap <silent> <leader>rl :TestLast<CR>
 
 " make test commands execute using vimux
 " 'dispatch'
-let test#strategy = 'neovim' 
+let test#strategy = 'vimux' 
 let test#python#pytest#options = '--doctest-modules'
 " let test#ruby#use_binstubs = 0
 
