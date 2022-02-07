@@ -63,6 +63,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+noremap <Leader>a <cmd>lua require('telescope.builtin').grep_string()<cr>
 
 call plug#end()
 

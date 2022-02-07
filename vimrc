@@ -58,7 +58,7 @@ nnoremap <silent> <F7> :NERDTreeToggle<cr>
 nmap <S-F7> :NERDTreeClose<CR>
 
 " Ack binding key
-noremap <Leader>a :Ack <cword><cr>
+"noremap <Leader>a :Ack <cword><cr>
 
 " Text commands
 iab datetoday <C-R>=strftime("%b %d, %Y")<CR>
