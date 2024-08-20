@@ -1,3 +1,8 @@
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 " vi:syntax=vim
 let s:pluginDir = $HOME . '/.vim/plugged'
 
@@ -22,8 +27,11 @@ Plug 'godlygeek/tabular'
 Plug 'vim-scripts/LanguageTool'
 
 " fzf telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
+Plug 'nvim-telescope/telescope.nvim', Cond(has('nvim'))
+
+" Github copilot
+"Plug 'github/copilot.vim', Cond(has('nvim'))
 
 " for ruby
 Plug 'vim-scripts/matchit.zip'
@@ -38,6 +46,9 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+
+" for LSP
+"Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
 
 " autocomplete
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}

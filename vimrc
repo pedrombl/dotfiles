@@ -23,7 +23,7 @@ set incsearch
 
 " highlight search
 set hlsearch
-nnoremap <Enter> :nohlsearch<CR><C-L>
+nnoremap <Leader><Enter> :nohlsearch<CR><C-L>
 
 " Text, tab and ident related
 "set smarttab

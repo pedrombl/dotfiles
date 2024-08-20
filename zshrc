@@ -105,6 +105,7 @@ alias base='tmux attach -t base || tmux new -s base'
 alias be='bundle exec'
 alias bi='bundle && BUNDLE_GEMFILE=~/.global_gemfile bundle'
 alias tags='./.git/hooks/ctags'
+alias vim='nvim'
 
 function refresh() {
   source $HOME/.zshrc
@@ -122,11 +123,20 @@ source ~/.tmuxinator.zsh
 if [ ! $SPIN ]; then
   [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
   if [ -e /Users/pedroleal/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/pedroleal/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-  #[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
   #chruby 2.7.3
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export PATH=/Users/pedroleal/.local/bin:$PATH
+
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# cloudplatform: add Shopify clusters to your local kubernetes config
+export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/pedroleal/.kube/config:/Users/pedroleal/.kube/config.shopify.cloudplatform
+for file in /Users/pedroleal/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
+kubectl-short-aliases
